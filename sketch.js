@@ -26,21 +26,16 @@ function Desresaltar() {
 function CargarArchivo(file) {
   console.log("El Nombre es " + file.name + " de tipo de " + file.type + " subtipo " + file.subtype)
   if (file.name.endsWith('.csv')) {
-    console.log("Es un .csv")
-    Data = loadTable(file.name, 'csv', 'header', InfoDatos)
-  } else {
-    console.log("No .csv")
+    Data = file.data.trim()
+    let Lineas = Data.split('\n').slice(1)
+    Lineas.forEach(Elemento => {
+      const Linea = Elemento.split(',')
+      const Dia = Linea[0]
+      const Dato = Linea[1]
+      console.log(Dia, Dato)
+    })
   }
-
-}
-
-function InfoDatos() {
-  print(Data.getRowCount() + ' total rows in table');
-  print(Data.getColumnCount() + ' total columns in table');
-
-  for (let r = 0; r < Data.getRowCount(); r++)
-    for (let c = 0; c < Data.getColumnCount(); c++) {
-      print(Data.getString(r, c));
-    }
-
+  else{
+   console.log("No es un archivo .csv")
+  }
 }
