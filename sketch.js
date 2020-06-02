@@ -13,12 +13,6 @@ function setup() {
   ZonaArrastrable.dragOver(Resaltar)
   ZonaArrastrable.dragLeave(Desresaltar)
   ZonaArrastrable.drop(CargarArchivo, Desresaltar)
-
-}
-
-function draw() {
-
-
 }
 
 function Resaltar() {
@@ -44,7 +38,7 @@ function CargarArchivo(file) {
       Fechas.push(Dia);
       const Dato = Linea[1]
       DatosDiario.push(parseFloat(Dato))
-      console.log(Dia, Dato)
+      // console.log(Dia, Dato)
     })
     CrearGrafica()
   } else {
@@ -54,8 +48,8 @@ function CargarArchivo(file) {
 
 function CrearGrafica() {
   let Grafica = document.getElementById("MiGrafica").getContext('2d');
+  Grafica.height = 500;
   // TODO: Limpiar codigo viejo
-
   for (i = 0; i < DatosDiario.length; i++) {
     if (i < 7) {
       DatosSum7.push(0);
@@ -87,50 +81,41 @@ function CrearGrafica() {
       datasets: [{
           label: 'Diario',
           data: DatosDiario,
-          backgroundColor: 'rgba(0, 255, 0, 1)',
-          borderColor: 'rgba(0, 100, 255, 1)',
-          borderWidth: 1
+          backgroundColor: '#4db6ac',
+          borderColor: '#29335C',
+          borderWidth: 2
         },
         {
-          label: 'Suma7',
+          label: 'Suma-7',
           data: DatosSum7,
-          backgroundColor: 'rgba(255, 9, 132, 0.2)',
-          borderColor: 'rgba(255, 9, 132, 1)',
-          borderWidth: 1
+          backgroundColor: '#D62246',
+          borderColor: '#2B193D',
+          borderWidth: 2
         },
         {
-          label: 'Suma30',
+          label: 'Suma-30',
           data: DatosSum30,
-          backgroundColor: 'rgba(0, 200, 122, 0.2)',
-          borderColor: 'rgba(55, 9, 232, 1)',
-          borderWidth: 1
+          backgroundColor: '#F3A712',
+          borderColor: '#562C2C',
+          borderWidth: 5
         }
       ]
     },
     options: {
+      maintainAspectRatio: false,
       responsive: true,
+      responsiveAnimationDuration: 500,
       stacked: false,
       hoverMode: 'index',
       title: {
         display: true,
-        text: 'Grafica analisis de Youtube'
+        text: 'Analisis de XXX'
       },
       scales: {
         yAxes: [{
-          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-          display: true,
-          position: 'left',
-          id: 'y-axis-1',
-        }, {
-          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-          display: true,
-          position: 'right',
-          id: 'y-axis-2',
-
-          // grid line settings
-          gridLines: {
-            drawOnChartArea: false, // only want the grid lines for one axis to show up
-          },
+          ticks: {
+            beginAtZero: true
+          }
         }]
       }
     }
