@@ -83,20 +83,20 @@ function CrearGrafica() {
           data: DatosDiario,
           backgroundColor: '#4db6ac',
           borderColor: '#29335C',
-          borderWidth: 2
+          borderWidth: 1
         },
         {
-          label: 'Suma-7',
+          label: 'Suma 7 Dia',
           data: DatosSum7,
-          backgroundColor: '#D62246',
-          borderColor: '#2B193D',
-          borderWidth: 2
-        },
-        {
-          label: 'Suma-30',
-          data: DatosSum30,
+          borderWidth: 3,
           backgroundColor: '#F3A712',
           borderColor: '#562C2C',
+        },
+        {
+          label: 'Suma 30 Dia',
+          data: DatosSum30,
+          backgroundColor: '#D62246',
+          borderColor: '#2B193D',
           borderWidth: 5
         }
       ]
@@ -106,10 +106,14 @@ function CrearGrafica() {
       responsive: true,
       responsiveAnimationDuration: 500,
       stacked: false,
-      hoverMode: 'index',
+      tooltips: {
+        mode: 'point'
+      },
       title: {
         display: true,
-        text: 'Analisis de XXX'
+        fontSize: 20,
+        position: 'bottom',
+        text: 'Analisis de ---'
       },
       scales: {
         yAxes: [{
@@ -117,6 +121,13 @@ function CrearGrafica() {
             beginAtZero: true
           }
         }]
+      },
+      legend: {
+        display: true,
+        labels: {
+        fontSize: 30,
+        fontFamily: 'Helvetica'
+        }
       }
     }
   });

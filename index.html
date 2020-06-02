@@ -11,6 +11,8 @@
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <!-- Materialize -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Iconos google -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
 
   <title>Analisis de Youtube a fondo</title>
@@ -23,34 +25,40 @@
       <div class="nav-wrapper teal lighten-2">
         <a href="https://alsw.net/" class="brand-logo">ALSW</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="sass.html">Ayuda</a></li>
-          <li><a href="badges.html">Donacion</a></li>
-          <li><a href="collapsible.html">Codigo</a></li>
-          <li><a href="collapsible.html">es</a></li>
+          <li><a href="#">Ayuda</a></li>
+          <li><a href="#">Donacion</a></li>
+          <li><a href="#">Codigo</a></li>
+          <li><a href="#"> <i class="large material-icons">insert_chart</i>es</a></li>
         </ul>
       </div>
     </nav>
   </div>
 
-  <!-- <div class="container"> -->
-    <div class="row">
-      <div class="col s12">
-        <div id="main" class="card">
-          <div class="card-content" id="ZonaArrastrable">
-            <span class="card-title">Analisis de Youtube a fondo</span>
-            <div class="row">
-              <canvas id="MiGrafica" height="700px">Your browser does not support the canvas element.</canvas>
-            </div>
-            <div class="row">
-              <p>Arrastra Totales.csv sobre el cuadro</p>
-            </div>
+  <div class="container">
+    <div class="col s12">
+      <div id="main" class="card">
+        <div class="card-content">
+          <span class="card-title center-align">Analisis de Youtube a fondo</span>
+          <p class="center-align">de ALSW</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <div id="main" class="card">
+        <div class="card-content" id="ZonaArrastrable">
+          <div class="row">
+            <p>Arrastra Totales.csv sobre el cuadro</p>
+          </div>
+          <div class="row">
+            <canvas id="MiGrafica" height="600px">Your browser does not support the canvas element.</canvas>
           </div>
         </div>
       </div>
     </div>
-  <!-- </div> -->
-
-
+  </div>
 
   <footer class="page-footer teal lighten-2">
     <div class="container">
