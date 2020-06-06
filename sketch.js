@@ -48,6 +48,7 @@ function CargarArchivo(file) {
 
 function CrearGrafica() {
   let Grafica = document.getElementById("MiGrafica").getContext('2d');
+
   Grafica.height = 500;
   // TODO: Limpiar codigo viejo
   for (i = 0; i < DatosDiario.length; i++) {
@@ -111,24 +112,54 @@ function CrearGrafica() {
       },
       title: {
         display: true,
-        fontSize: 20,
+        fontSize: 22,
         position: 'bottom',
         text: 'Analisis de ---'
       },
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+        fontSize: 18
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
       },
       legend: {
         display: true,
         labels: {
-        fontSize: 30,
-        fontFamily: 'Helvetica'
+          fontSize: 30,
+          fontFamily: 'Helvetica'
         }
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Fecha'
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: '---'
+          }
+        }]
       }
     }
   });
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.modal');
+  var instances = M.Modal.init(elems, options);
+});
+
+// Or with jQuery
+
+$(document).ready(function() {
+  $('.modal').modal();
+});
