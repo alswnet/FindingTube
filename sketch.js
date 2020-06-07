@@ -5,7 +5,8 @@ let Fechas = []
 let DatosDiario = []
 let DatosSum7 = []
 let DatosSum30 = []
-let DatosTipo
+let EtiquetaValor
+let EtiquetaTiempo
 let DataEjemplo
 
 function preload() {
@@ -37,7 +38,8 @@ function Desresaltar() {
 function CargarDataEjemplo() {
   for (let y = 0; y < DataEjemplo.getRowCount(); y++) {
     if (y == 0) {
-      DatosTipo = DataEjemplo.getString(y, 1)
+      EtiquetaValor = DataEjemplo.getString(y, 1)
+      EtiquetaTiempo = DataEjemplo.getString(y, 0)
     } else {
       Fechas.push(DataEjemplo.getString(y, 0))
       DatosDiario.push(parseFloat(DataEjemplo.getString(y, 1)))
@@ -144,7 +146,7 @@ function CrearGrafica() {
         display: true,
         fontSize: 22,
         position: 'bottom',
-        text: 'Analisis de ---'
+        text: 'Analisis de ' + EtiquetaValor
       },
       tooltips: {
         mode: 'index',
@@ -167,14 +169,14 @@ function CrearGrafica() {
           display: true,
           scaleLabel: {
             display: true,
-            labelString: 'Fecha'
+            labelString: EtiquetaTiempo
           }
         }],
         yAxes: [{
           display: true,
           scaleLabel: {
             display: true,
-            labelString: '---'
+            labelString: EtiquetaValor
           }
         }]
       }
