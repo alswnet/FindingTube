@@ -11,6 +11,7 @@ let EtiquetaTiempo
 let DataEjemplo
 
 function preload() {
+  // TODO; Agregar que los datos son del canal de ALSW
   DataEjemplo = loadTable('data/Totales6Junio2020ALSW.csv', 'csv');
 }
 
@@ -60,6 +61,9 @@ function CargarArchivo(file) {
   if (file.name.endsWith('.csv')) {
     Data = file.data.trim()
     InicialDatos()
+    let PrimeraLinea = Data.split('\n')[0].split(',')
+    EtiquetaTiempo = PrimeraLinea[0]
+    EtiquetaValor = PrimeraLinea[1]
     let Lineas = Data.split('\n').slice(1)
     Lineas.forEach(Elemento => {
       const Linea = Elemento.split(',')
@@ -76,6 +80,7 @@ function CargarArchivo(file) {
 }
 
 function PrepararDatos() {
+
   for (i = 0; i < DatosDiario.length; i++) {
     if (i < 7) {
       DatosSum7.push(0);
@@ -104,8 +109,6 @@ function PrepararDatos() {
 
 function CrearGrafica() {
 
-  // Grafica.height = 500;
-  // TODO: Limpiar codigo viejo
   PrepararDatos()
   if (MiGrafica != null) {
     MiGrafica.destroy()
