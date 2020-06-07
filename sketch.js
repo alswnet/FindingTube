@@ -6,6 +6,7 @@ let DatosDiario = []
 let DatosSum7 = []
 let DatosSum30 = []
 let DatosTipo
+let DataEjemplo
 
 function preload() {
   DataEjemplo = loadTable('data/Totales6Junio2020ALSW.csv', 'csv');
@@ -18,7 +19,11 @@ function setup() {
   ZonaArrastrable.dragOver(Resaltar)
   ZonaArrastrable.dragLeave(Desresaltar)
   ZonaArrastrable.drop(CargarArchivo, Desresaltar)
+  Grafica = document.getElementById("MiGrafica").getContext('2d')
+  InicialDatos()
   CargarDataEjemplo()
+  PrepararDatos()
+  CrearGrafica()
 }
 
 function Resaltar() {
@@ -31,24 +36,27 @@ function Desresaltar() {
 
 function CargarDataEjemplo() {
   for (let y = 0; y < DataEjemplo.getRowCount(); y++) {
-    for (let x = 0; x < DataEjemplo.getColumnCount(); x++) {
-      if (y == 0) {
-        DatosTipo = DataEjemplo.getString(y, x)
-      }
-      print(DataEjemplo.getString(y, x));
+    if (y == 0) {
+      DatosTipo = DataEjemplo.getString(y, 1)
+    } else {
+      Fechas.push(DataEjemplo.getString(y, 0))
+      DatosDiario.push(parseFloat(DataEjemplo.getString(y, 1)))
     }
   }
-  console.log("La data es " + DatosTipo)
+}
+
+function InicialDatos() {
+  Fechas = []
+  DatosDiario = []
+  DatosSum7 = []
+  DatosSum30 = []
 }
 
 function CargarArchivo(file) {
   console.log("El Nombre es " + file.name + " de tipo de " + file.type + " subtipo " + file.subtype)
   if (file.name.endsWith('.csv')) {
     Data = file.data.trim()
-    Fechas = []
-    DatosDiario = []
-    DatosSum7 = []
-    DatosSum30 = []
+    InicialDatos()
     let Lineas = Data.split('\n').slice(1)
     Lineas.forEach(Elemento => {
       const Linea = Elemento.split(',')
@@ -64,11 +72,7 @@ function CargarArchivo(file) {
   }
 }
 
-function CrearGrafica() {
-  let Grafica = document.getElementById("MiGrafica").getContext('2d');
-
-  Grafica.height = 500;
-  // TODO: Limpiar codigo viejo
+function PrepararDatos() {
   for (i = 0; i < DatosDiario.length; i++) {
     if (i < 7) {
       DatosSum7.push(0);
@@ -92,6 +96,14 @@ function CrearGrafica() {
       DatosSum30.push(Temporal)
     }
   }
+
+}
+
+function CrearGrafica() {
+
+  // Grafica.height = 500;
+  // TODO: Limpiar codigo viejo
+  PrepararDatos()
 
   let MiGrafica = new Chart(Grafica, {
     type: 'line',
