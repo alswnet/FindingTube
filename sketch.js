@@ -1,6 +1,7 @@
 let ZonaArrastrable
 let Data
 let Grafica
+let MiGrafica
 let Fechas = []
 let DatosDiario = []
 let DatosSum7 = []
@@ -106,8 +107,11 @@ function CrearGrafica() {
   // Grafica.height = 500;
   // TODO: Limpiar codigo viejo
   PrepararDatos()
+  if (MiGrafica != null) {
+    MiGrafica.destroy()
+  }
 
-  let MiGrafica = new Chart(Grafica, {
+  MiGrafica = new Chart(Grafica, {
     type: 'line',
     data: {
       labels: Fechas,
@@ -183,15 +187,3 @@ function CrearGrafica() {
     }
   });
 }
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.modal');
-  var instances = M.Modal.init(elems, options);
-});
-
-// Or with jQuery
-
-$(document).ready(function() {
-  $('.modal').modal();
-});
