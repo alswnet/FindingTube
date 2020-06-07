@@ -5,6 +5,11 @@ let Fechas = []
 let DatosDiario = []
 let DatosSum7 = []
 let DatosSum30 = []
+let DatosTipo
+
+function preload() {
+  DataEjemplo = loadTable('data/Totales6Junio2020ALSW.csv', 'csv');
+}
 
 function setup() {
   noCanvas()
@@ -13,6 +18,7 @@ function setup() {
   ZonaArrastrable.dragOver(Resaltar)
   ZonaArrastrable.dragLeave(Desresaltar)
   ZonaArrastrable.drop(CargarArchivo, Desresaltar)
+  CargarDataEjemplo()
 }
 
 function Resaltar() {
@@ -21,6 +27,18 @@ function Resaltar() {
 
 function Desresaltar() {
   ZonaArrastrable.style('background-color', '#FFF')
+}
+
+function CargarDataEjemplo() {
+  for (let y = 0; y < DataEjemplo.getRowCount(); y++) {
+    for (let x = 0; x < DataEjemplo.getColumnCount(); x++) {
+      if (y == 0) {
+        DatosTipo = DataEjemplo.getString(y, x)
+      }
+      print(DataEjemplo.getString(y, x));
+    }
+  }
+  console.log("La data es " + DatosTipo)
 }
 
 function CargarArchivo(file) {
