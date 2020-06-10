@@ -62,20 +62,26 @@ function CargarArchivo(file) {
   Archivo = file
   print(file)
   if (file.name.endsWith('.csv')) {
-    Data = file.data.trim()
-    InicialDatos()
-    let PrimeraLinea = Data.split('\n')[0].split(',')
-    EtiquetaTiempo = PrimeraLinea[0]
-    EtiquetaValor = PrimeraLinea[1]
-    let Lineas = Data.split('\n').slice(1)
-    Lineas.forEach(Elemento => {
-      const Linea = Elemento.split(',')
-      const Dia = Linea[0]
-      Fechas.push(Dia);
-      const Dato = Linea[1]
-      DatosDiario.push(parseFloat(Dato))
-      // console.log(Dia, Dato)
-    })
+    console.log("Archivo CSV")
+    if (file.type == "text" && file.subtype == "csv") {
+      Data = file.data.trim()
+      InicialDatos()
+      let PrimeraLinea = Data.split('\n')[0].split(',')
+      EtiquetaTiempo = PrimeraLinea[0]
+      EtiquetaValor = PrimeraLinea[1]
+      let Lineas = Data.split('\n').slice(1)
+      Lineas.forEach(Elemento => {
+        const Linea = Elemento.split(',')
+        const Dia = Linea[0]
+        Fechas.push(Dia);
+        const Dato = Linea[1]
+        DatosDiario.push(parseFloat(Dato))
+        // console.log(Dia, Dato)
+      })
+    } else if (file.type == "") {
+      DataEjemplo = loadTable(file.data, 'csv');
+      CargarDataEjemplo()
+    }
     CrearGrafica()
   } else {
     console.log("No es un archivo .csv")
