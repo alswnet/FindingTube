@@ -1,3 +1,4 @@
+let Archivo
 let ZonaArrastrable
 let Data
 let Grafica
@@ -58,6 +59,7 @@ function InicialDatos() {
 
 function CargarArchivo(file) {
   console.log("El Nombre es " + file.name + " de tipo de " + file.type + " subtipo " + file.subtype)
+  Archivo = file
   print(file)
   if (file.name.endsWith('.csv')) {
     Data = file.data.trim()
