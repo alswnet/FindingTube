@@ -5,15 +5,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
   <!-- Font Awesone -->
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <!-- Materialize -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <!-- Iconos google -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- p5.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 
   <title>Analisis de Youtube a fondo</title>
 </head>
@@ -24,9 +25,9 @@
       <div class="nav-wrapper teal lighten-2">
         <a class="brand-logo">FindingTube beta</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="#">Ayuda</a></li>
-          <li><a href="#">Donacion</a></li>
-          <li><a href="#">Codigo</a></li>
+          <li><a href="#">Tutorial</a></li>
+          <li><a href="https://www.paypal.com/paypalme/alswnet/5">Donacion</a></li>
+          <li><a href="https://github.com/alswnet/FindingTube">Codigo</a></li>
           <li><a href="#"> <i class="large material-icons">insert_chart</i>es</a></li>
         </ul>
       </div>
@@ -39,6 +40,37 @@
         <div class="card-content">
           <span class="card-title center-align">Encuentra como va tu canal de Youtube a fondo</span>
           <p class="center-align">de ALSW</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <div id="main" class="card">
+          <div class="card-content">
+            <form class="file-field input-field">
+
+              <div>
+                <span class="card-title center-align">Sube el archivo totales.csv</span>
+              </div>
+              <div class="btn">
+                <span>Subir archivo CSV</span>
+                <label for="files">:</label>
+                <input type="file" id="files" accept=".csv" required>
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+              <div>
+                <button class="btn waves-effect waves-light" id="submit-file" name="action">Cargar
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -63,8 +95,8 @@
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
-          <h5 class="white-text">Footer Content</h5>
-          <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+          <h5 class="white-text">ALSW</h5>
+          <p class="grey-text text-lighten-4">Somos un grupo de emprendedores makers, nos apasiona la tecnología, no solo conocer de ella, sino que también desarrollarla, estudiarla, modificarla y crearla.</p>
         </div>
         <div class="col l4 offset-l2 s12">
           <h5 class="white-text">Links</h5>
@@ -89,5 +121,6 @@
 
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
   <script src="sketch.js"></script>
 </body>

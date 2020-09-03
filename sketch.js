@@ -1,90 +1,141 @@
-let Archivo
-let ZonaArrastrable
-let Data
-let Grafica
-let MiGrafica
-let Fechas = []
-let DatosDiario = []
-let DatosSum7 = []
-let DatosSum30 = []
-let EtiquetaValor
-let EtiquetaTiempo
-let DataEjemplo
+/*jshint esversion: 6 */
+//
+let Archivo;
+let ZonaArrastrable;
+let Data;
+let Grafica;
+let MiGrafica;
+let Fechas = [];
+let DatosDiario = [];
+let DatosSum7 = [];
+let DatosSum30 = [];
+let EtiquetaValor;
+let EtiquetaTiempo;
+let DataEjemplo;
+
+$(document).ready(function() {
+  console.log("Cargando inicio");
+  $('#submit-file').on("click", function(e) {
+    console.log("Cargando archivo");
+    e.preventDefault();
+    $('#files').parse({
+      config: {
+        delimiter: "auto",
+        complete: displayHTMLTable,
+      },
+      before: function(file, inputElem) {
+        //console.log("Parsing file...", file);
+      },
+      error: function(err, file) {
+        //console.log("ERROR:", err, file);
+      },
+      complete: function() {
+        //console.log("Done with all files");
+      }
+    });
+
+    function displayHTMLTable(results) {
+      InicialDatos();
+      // CargarDataEjemplo();
+
+      var data = results.data;
+      // console.log(data);
+      if (data.length > 2) {
+        var info = data[0];
+        var encabedo = info.join(",").split(",");
+        EtiquetaTiempo = encabedo[0];
+        EtiquetaValor = encabedo[1];
+        // console.log(encabedo);
+
+        for (i = 1; i < data.length; i++) {
+          var row = data[i];
+          var cells = row.join(",").split(",");
+          Fechas.push(cells[0]);
+          DatosDiario.push(parseFloat(cells[1]));
+        }
+      }
+      PrepararDatos();
+      CrearGrafica();
+    }
+  });
+});
+
 
 function preload() {
   // TODO; Agregar que los datos son del canal de ALSW
   DataEjemplo = loadTable('data/Totales6Junio2020ALSW.csv', 'csv');
+  console.table(DataEjemplo);
 }
 
 function setup() {
-  noCanvas()
-  noLoop()
-  ZonaArrastrable = select("#ZonaArrastrable")
-  ZonaArrastrable.dragOver(Resaltar)
-  ZonaArrastrable.dragLeave(Desresaltar)
-  ZonaArrastrable.drop(CargarArchivo, Desresaltar)
-  Grafica = document.getElementById("MiGrafica").getContext('2d')
-  InicialDatos()
-  CargarDataEjemplo()
-  PrepararDatos()
-  CrearGrafica()
+  noCanvas();
+  noLoop();
+  // ZonaArrastrable = select("#ZonaArrastrable");
+  // ZonaArrastrable.dragOver(Resaltar);
+  // ZonaArrastrable.dragLeave(Desresaltar);
+  // ZonaArrastrable.drop(CargarArchivo, Desresaltar);
+  Grafica = document.getElementById("MiGrafica").getContext('2d');
+  InicialDatos();
+  CargarDataEjemplo();
+  PrepararDatos();
+  CrearGrafica();
 }
 
 function Resaltar() {
-  ZonaArrastrable.style('background-color', '#CCC')
+  ZonaArrastrable.style('background-color', '#CCC');
 }
 
 function Desresaltar() {
-  ZonaArrastrable.style('background-color', '#FFF')
+  ZonaArrastrable.style('background-color', '#FFF');
 }
 
 function CargarDataEjemplo() {
   for (let y = 0; y < DataEjemplo.getRowCount(); y++) {
     if (y == 0) {
-      EtiquetaValor = DataEjemplo.getString(y, 1)
-      EtiquetaTiempo = DataEjemplo.getString(y, 0)
+      EtiquetaValor = DataEjemplo.getString(y, 1);
+      EtiquetaTiempo = DataEjemplo.getString(y, 0);
     } else {
-      Fechas.push(DataEjemplo.getString(y, 0))
-      DatosDiario.push(parseFloat(DataEjemplo.getString(y, 1)))
+      Fechas.push(DataEjemplo.getString(y, 0));
+      DatosDiario.push(parseFloat(DataEjemplo.getString(y, 1)));
     }
   }
 }
 
 function InicialDatos() {
-  Fechas = []
-  DatosDiario = []
-  DatosSum7 = []
-  DatosSum30 = []
+  Fechas = [];
+  DatosDiario = [];
+  DatosSum7 = [];
+  DatosSum30 = [];
 }
 
 function CargarArchivo(file) {
-  console.log("El Nombre es " + file.name + " de tipo de " + file.type + " subtipo " + file.subtype)
-  Archivo = file
-  print(file)
+  console.log("El Nombre es " + file.name + " de tipo de " + file.type + " subtipo " + file.subtype);
+  Archivo = file;
+  print(file);
   if (file.name.endsWith('.csv')) {
-    console.log("Archivo CSV")
+    console.log("Archivo CSV");
     if (file.type == "text" && file.subtype == "csv") {
-      Data = file.data.trim()
-      InicialDatos()
-      let PrimeraLinea = Data.split('\n')[0].split(',')
-      EtiquetaTiempo = PrimeraLinea[0]
-      EtiquetaValor = PrimeraLinea[1]
-      let Lineas = Data.split('\n').slice(1)
+      Data = file.data.trim();
+      InicialDatos();
+      let PrimeraLinea = Data.split('\n')[0].split(',');
+      EtiquetaTiempo = PrimeraLinea[0];
+      EtiquetaValor = PrimeraLinea[1];
+      let Lineas = Data.split('\n').slice(1);
       Lineas.forEach(Elemento => {
-        const Linea = Elemento.split(',')
-        const Dia = Linea[0]
+        const Linea = Elemento.split(',');
+        const Dia = Linea[0];
         Fechas.push(Dia);
-        const Dato = Linea[1]
-        DatosDiario.push(parseFloat(Dato))
+        const Dato = Linea[1];
+        DatosDiario.push(parseFloat(Dato));
         // console.log(Dia, Dato)
-      })
+      });
     } else if (file.type == "") {
       DataEjemplo = loadTable(file.data, 'csv');
-      CargarDataEjemplo()
+      CargarDataEjemplo();
     }
-    CrearGrafica()
+    CrearGrafica();
   } else {
-    console.log("No es un archivo .csv")
+    console.log("No es un archivo .csv");
   }
 }
 
@@ -96,9 +147,9 @@ function PrepararDatos() {
     } else {
       let Temporal = 0;
       for (j = 0; j < 7; j++) {
-        Temporal = Temporal + DatosDiario[i - j]
+        Temporal = Temporal + DatosDiario[i - j];
       }
-      DatosSum7.push(Temporal)
+      DatosSum7.push(Temporal);
     }
   }
 
@@ -108,9 +159,9 @@ function PrepararDatos() {
     } else {
       let Temporal = 0;
       for (j = 0; j < 30; j++) {
-        Temporal = Temporal + DatosDiario[i - j]
+        Temporal = Temporal + DatosDiario[i - j];
       }
-      DatosSum30.push(Temporal)
+      DatosSum30.push(Temporal);
     }
   }
 
@@ -118,9 +169,9 @@ function PrepararDatos() {
 
 function CrearGrafica() {
 
-  PrepararDatos()
+  PrepararDatos();
   if (MiGrafica != null) {
-    MiGrafica.destroy()
+    MiGrafica.destroy();
   }
 
   MiGrafica = new Chart(Grafica, {
